@@ -1,0 +1,12 @@
+{
+  "name": "supplier-management-ui5",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "ui5 serve --open index.html"
+  },
+  "devDependencies": {
+    "@ui5/cli": "^4",
+    "ui5-middleware-simpleproxy": "^3.4.0"
+  }
+}

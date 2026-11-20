@@ -1,0 +1,47 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "supplier.management",
+    "type": "application",
+    "title": "Supplier Management Portal",
+    "description": "Supplier onboarding and approval application",
+    "applicationVersion": { "version": "1.0.0" },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/supplier/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0",
+          "localUri": "localService/metadata.xml"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "supplier.management.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    },
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": { "bundleName": "supplier.management.i18n.i18n" }
+      }
+    }
+  }
+}

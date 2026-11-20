@@ -1,0 +1,49 @@
+_schema-version: "3.3"
+ID: supplier-management
+version: 1.0.0
+description: SAPUI5 + SAP BTP CAP Supplier Management Portal
+
+modules:
+  - name: supplier-management-srv
+    type: nodejs
+    path: gen/srv
+    requires:
+      - name: supplier-management-db
+      - name: supplier-management-uaa
+    provides:
+      - name: supplier-srv-api
+        properties:
+          url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      memory: 512M
+
+  - name: supplier-management-approuter
+    type: approuter.nodejs
+    path: approuter
+    requires:
+      - name: supplier-management-uaa
+      - name: supplier-srv-api
+        group: destinations
+        properties:
+          name: supplier-srv
+          url: ~{url}
+          forwardAuthToken: true
+    parameters:
+      buildpack: nodejs_buildpack
+      memory: 256M
+      disk-quota: 256M
+
+resources:
+  - name: supplier-management-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+
+  - name: supplier-management-db
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: postgresql
+      service-plan: development

@@ -1,0 +1,77 @@
+<mvc:View
+  controllerName="supplier.management.controller.App"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <App>
+    <Page title="Supplier Management Portal" class="sapUiResponsiveContentPadding">
+      <content>
+        <VBox class="sapUiSmallMargin">
+          <MessageStrip
+            text="Create supplier requests and manage approval status."
+            type="Information"
+            showIcon="true"
+            class="sapUiSmallMarginBottom"/>
+          <Panel headerText="New Supplier Request" expandable="true" expanded="true">
+            <content>
+              <VBox class="sapUiSmallMargin" width="100%">
+                <Label text="Supplier Name" required="true"/>
+                <Input id="supplierName" placeholder="Enter supplier/company name"/>
+                <Label text="Contact Person"/>
+                <Input id="contactName" placeholder="Enter contact person"/>
+                <Label text="Email"/>
+                <Input id="email" type="Email" placeholder="name@company.com"/>
+                <Label text="Phone"/>
+                <Input id="phone" placeholder="+91..."/>
+                <Label text="Country"/>
+                <Input id="country" value="India"/>
+                <Label text="Supplier Type"/>
+                <Select id="supplierType" selectedKey="LOCAL" width="100%">
+                  <items>
+                    <core:Item key="LOCAL" text="Local GST"/>
+                    <core:Item key="IMPORT" text="Import"/>
+                    <core:Item key="SERVICE" text="Service"/>
+                  </items>
+                </Select>
+                <Label text="Tax Number / GSTIN"/>
+                <Input id="taxNumber" placeholder="Enter tax number"/>
+                <Button text="Submit Supplier Request" type="Emphasized" press=".onCreateSupplier" class="sapUiSmallMarginTop"/>
+              </VBox>
+            </content>
+          </Panel>
+          <Toolbar class="sapUiMediumMarginTop">
+            <Title text="Supplier Requests" level="H2"/>
+            <ToolbarSpacer/>
+            <SearchField width="18rem" placeholder="Search supplier" liveChange=".onSearch"/>
+            <Button icon="sap-icon://refresh" tooltip="Refresh" press=".onRefresh"/>
+          </Toolbar>
+          <Table id="supplierTable" items="{/Suppliers}" growing="true" growingScrollToLoad="true">
+            <columns>
+              <Column><Text text="Supplier"/></Column>
+              <Column minScreenWidth="Tablet" demandPopin="true"><Text text="Contact"/></Column>
+              <Column minScreenWidth="Tablet" demandPopin="true"><Text text="Country"/></Column>
+              <Column><Text text="Type"/></Column>
+              <Column><Text text="Status"/></Column>
+              <Column hAlign="End"><Text text="Actions"/></Column>
+            </columns>
+            <items>
+              <ColumnListItem>
+                <cells>
+                  <ObjectIdentifier title="{supplierName}" text="{taxNumber}"/>
+                  <Text text="{contactName}"/>
+                  <Text text="{country}"/>
+                  <Text text="{supplierType}"/>
+                  <ObjectStatus text="{status}" state="{= ${status} === 'APPROVED' ? 'Success' : ${status} === 'REJECTED' ? 'Error' : 'Warning' }"/>
+                  <HBox justifyContent="End">
+                    <Button icon="sap-icon://accept" type="Transparent" tooltip="Approve" press=".onApprove" enabled="{= ${status} === 'PENDING' }"/>
+                    <Button icon="sap-icon://decline" type="Transparent" tooltip="Reject" press=".onReject" enabled="{= ${status} === 'PENDING' }"/>
+                  </HBox>
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+        </VBox>
+      </content>
+    </Page>
+  </App>
+</mvc:View>

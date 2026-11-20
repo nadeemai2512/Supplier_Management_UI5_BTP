@@ -1,0 +1,29 @@
+{
+  "name": "supplier-management-ui5-btp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SAPUI5 + SAP BTP CAP Supplier Management Portal",
+  "scripts": {
+    "watch": "cds watch",
+    "start": "cds-serve",
+    "build": "cds build --production"
+  },
+  "dependencies": {
+    "@sap/cds": "^8",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^8",
+    "better-sqlite3": "^11"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "db.sqlite"
+        }
+      }
+    }
+  }
+}

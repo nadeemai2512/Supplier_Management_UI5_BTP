@@ -1,0 +1,20 @@
+{
+  "xsappname": "supplier-management-ui5-btp",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    { "name": "$XSAPPNAME.User", "description": "Supplier portal user" },
+    { "name": "$XSAPPNAME.Approver", "description": "Supplier request approver" }
+  ],
+  "role-templates": [
+    {
+      "name": "SupplierUser",
+      "description": "Supplier portal user",
+      "scope-references": ["$XSAPPNAME.User"]
+    },
+    {
+      "name": "SupplierApprover",
+      "description": "Supplier request approver",
+      "scope-references": ["$XSAPPNAME.User", "$XSAPPNAME.Approver"]
+    }
+  ]
+}
